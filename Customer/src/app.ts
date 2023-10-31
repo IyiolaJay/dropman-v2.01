@@ -1,0 +1,23 @@
+import "dotenv/config";
+import express, {Request, Response} from "express";
+import cors from "cors";
+// import proxy from  "express-http-proxy";
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+
+
+app.get("/", (_:Request, res: Response)=>{
+    res.status(200).json({
+        message: "Customer service is live and running",
+    })
+});
+
+
+
+
+export default app
