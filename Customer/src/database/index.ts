@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
+const uri = process.env.MONGODB_URI;
+
 export const connectToDatabase = async () => {
   try {
-       await mongoose.connect(process.env.MONGODB_URI || "");
+       await mongoose.connect(uri || "");
       console.log("Successfully connected to customer database",);
   } 
   

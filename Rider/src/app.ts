@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, {Request, Response} from "express";
 import cors from "cors";
-// import proxy from  "express-http-proxy";
+import { err404NotFound } from "./errors/middlewares/error.middleware";
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.get("/", (_:Request, res: Response)=>{
     })
 });
 
-
+app.use(err404NotFound);
 
 
 export default app
