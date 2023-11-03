@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import { AuthService } from "../services/app/auth.service";
-import { getErrorMessage } from "../../errors";
+import { getErrorMessage } from "../errors";
 
 
 
@@ -10,12 +10,11 @@ try{
     await AuthService.createUserAccountService(userReq);
     
     res.status(201).json({
-        message : "Account created"
+        message : "Account created",
     })
     return;
 }
 catch(error: any){
-    
     console.log(error);
     const result = getErrorMessage(error);
     res.status(result.code).json({error : result});
