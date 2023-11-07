@@ -3,6 +3,7 @@ import express, {Request, Response} from "express";
 import cors from "cors";
 import { err404NotFound } from "./errors/middlewares/error.middleware";
 import authRoutes from "./routes/auth.routes";
+import { customerEvent } from "./middlewares/event.middleware";
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.get("/", (_:Request, res: Response)=>{
         message: "Customer service is live and running",
     })
 });
+
+customerEvent(app);
 
 app.use("/customer", authRoutes);
 // Error Handling Middleware

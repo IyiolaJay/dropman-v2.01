@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ErrInvalidUserToken, getErrorMessage } from "../../errors";
+import { ErrInvalidUserToken, getErrorMessage } from "../errors";
 import { verifyAuthToken } from "../services/security/token.service";
 import { ITokenData } from "../services/security/types";
 
