@@ -2,7 +2,7 @@ import "dotenv/config";
 import express, {Request, Response} from "express";
 import cors from "cors";
 import { serveSwaggerDocs } from "./docs/swagger.doc";
-// import proxy from  "express-http-proxy";
+import proxy from  "express-http-proxy";
 
 const app = express();
 
@@ -17,6 +17,7 @@ app.get("/", (_:Request, res: Response)=>{
         message: "Gateway is live and running",
     })
 });
+app.use("/customer", proxy("http://localhost:5001"));
 
 serveSwaggerDocs(app, 5000);
 

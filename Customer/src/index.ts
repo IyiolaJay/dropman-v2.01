@@ -9,7 +9,7 @@ const startApp =  (app : Express, port: any)=>{
     
     app.listen(port, async()=>{
         await connectToDatabase();
-        console.log(`Customer services is live an listening on port ${port}`);
+        console.log(`Customer service is live an listening on port ${port}`);
     })
 }
 

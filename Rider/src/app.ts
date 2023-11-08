@@ -2,6 +2,7 @@ import "dotenv/config";
 import express, {Request, Response} from "express";
 import cors from "cors";
 import { err404NotFound } from "./errors/middlewares/error.middleware";
+import { riderEvent } from "./middlewares/event.middleware";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.get("/", (_:Request, res: Response)=>{
         message: "Gateway is live and running",
     })
 });
+riderEvent(app);
 
 app.use(err404NotFound);
 

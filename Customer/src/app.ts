@@ -21,7 +21,7 @@ app.get("/", (_:Request, res: Response)=>{
 
 customerEvent(app);
 
-app.use("/customer", authRoutes);
+app.use("/api/v2", authRoutes);
 // Error Handling Middleware
 app.use(err404NotFound);
 

@@ -2,6 +2,7 @@ import { ICustomer } from "../../database/models/customer/types";
 import Customer from "../../database/models/customer/index";
 import { ErrEmailAlreadyExists } from "../../errors";
 import { genHashedPassword } from "../../utils/auth.utils";
+import { publishRiderEvent } from "./events.service";
 
 
 
@@ -15,10 +16,14 @@ const createUserAccountService = async (userReq : ICustomer) =>{
 
     const customer = 
         Customer.findOne({ email});
-        
-    
-    if (customer !== null) throw ErrEmailAlreadyExists;
 
+    const res = await publishRiderEvent({payload : {event : "CHECK_RIDER", data : {email : email}}})
+    
+    console.log(res);
+
+    
+    if (customer !== null ) throw ErrEmailAlreadyExists;
+    
 
     const hp = await genHashedPassword(password);
 

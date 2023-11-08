@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import config  from "../config/default";
 
-const uri = process.env.MONGODB_URI;
+const uri = config.databaseUri;
 
 export const connectToDatabase = async () => {
   try {
-       await mongoose.connect(uri || "");
+       await mongoose.connect(uri as string);
       console.log("Successfully connected to customer database",);
   } 
   

@@ -1,7 +1,7 @@
 import { IRider } from "./types";
 import { Schema, model } from "mongoose";
 import { v4 as uuidV4} from "uuid";
-import { ErrInvalidPassword } from "../../../errors";
+import { ErrInvalidPassword } from "../../errors";
 
 
 const riderSchema = new Schema<IRider>(

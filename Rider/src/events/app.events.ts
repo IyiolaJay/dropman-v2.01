@@ -7,7 +7,7 @@ export const subscribeEvent = async (payloads: IPayload)=>{
 
     const {event} = payload;
     switch(event){
-        case "CHECK_USER":
+        case "CHECK_RIDER":
         return  "Actions Implementation";
         default:
             break;

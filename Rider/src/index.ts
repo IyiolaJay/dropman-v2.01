@@ -7,8 +7,7 @@ const port = process.env.PORT;
 const startApp =  (app : Express, port: any)=>{
     
     app.listen(port, async()=>{
-        console.log(port);
-        console.log(`Gate is live an listening on port ${port}`);
+        console.log(`Rider service is live an listening on port ${port}`);
     })
 }
 
