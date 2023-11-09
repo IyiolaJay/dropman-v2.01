@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { subscribeEvent } from "../events/app.events";
-import { IPayload } from "../events/types";
+// import { subscribeEvent } from "../events/app.events";
+// import { IPayload } from "../events/types";
 import { getErrorMessage } from "../errors";
 import {Express} from "express";
 
@@ -11,10 +11,10 @@ export const riderEvent= (app : Express)=>{
         try {
         const { payload } = req.body;
     
-         await subscribeEvent(payload as IPayload);
+        //  await subscribeEvent(payload as IPayload);
     
         res.status(200).json({
-          payload,
+          data : payload,
         });
         return;
       } catch (error: any) {

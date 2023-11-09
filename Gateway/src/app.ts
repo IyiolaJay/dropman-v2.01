@@ -18,6 +18,7 @@ app.get("/", (_:Request, res: Response)=>{
     })
 });
 app.use("/customer", proxy("http://localhost:5001"));
+app.use("/rider", proxy("http://localhost:5003"));
 
 serveSwaggerDocs(app, 5000);
 

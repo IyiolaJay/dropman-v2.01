@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.get("/", (_:Request, res: Response)=>{
     res.status(200).json({
-        message: "Gateway is live and running",
+        message: "Rider service is live and running",
     })
 });
 riderEvent(app);
