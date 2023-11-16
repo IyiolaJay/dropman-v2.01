@@ -14,15 +14,13 @@ import { publishRiderEvent } from "./events.service";
 const createUserAccountService = async (userReq : ICustomer) =>{
     const {email, password} = userReq;
 
-    const customer = 
-        Customer.findOne({ email});
+    const customer =  await Customer.findOne({ email});
 
     const res = await publishRiderEvent({payload : {event : "CHECK_RIDER", data : {email : email}}})
     
     console.log(res);
-
-    
-    if (customer !== null ) throw ErrEmailAlreadyExists;
+        
+    if (customer) throw ErrEmailAlreadyExists;
     
 
     const hp = await genHashedPassword(password);

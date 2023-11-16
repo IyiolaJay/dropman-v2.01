@@ -6,7 +6,7 @@ export const publishRiderEvent =async (payload :any)=>{
     if(!payload){
         throw new Error("Payload is required");
     }
-    const response = await axios.post("http://localhost:5003/rider/app-events", payload);
+    const response = await axios.post("http://localhost:5003/app-events", payload);
 
     return response.data;
 

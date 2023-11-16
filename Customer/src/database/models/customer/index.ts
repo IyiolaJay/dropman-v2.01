@@ -57,7 +57,7 @@ const userSchema = new Schema<ICustomer>(
 );
 
 userSchema.pre("save",async function (){
-    if(this.isModified("password")){
+    if(this.isModified("password") && !this.isNew){
         throw ErrInvalidPassword;
     }
 });

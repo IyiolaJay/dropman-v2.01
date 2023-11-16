@@ -17,10 +17,11 @@ app.get("/", (_:Request, res: Response)=>{
         message: "Gateway is live and running",
     })
 });
-app.use("/customer", proxy("http://localhost:5001"));
-app.use("/rider", proxy("http://localhost:5003"));
+app.use("/api/v2/customer", proxy(process.env.CUSTOMER_PROXY || ""));
+app.use("/api/v2/request", proxy(process.env.REQUEST_PROXY || ""));
+app.use("/api/v2/rider", proxy(process.env.RIDER_PROXY || ""));
 
-serveSwaggerDocs(app, 5000);
+serveSwaggerDocs(app, Number(process.env.PORT) ?? 5000);
 
 
 
