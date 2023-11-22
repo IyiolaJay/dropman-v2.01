@@ -29,8 +29,7 @@ export const authenticateUser = async (
     
     req.user = {
         _id : decodedToken._id,
-        publicUser : decodedToken.publicId,
-        userType : decodedToken.userType,
+        publicId : decodedToken.publicId,
     };
 
     next();

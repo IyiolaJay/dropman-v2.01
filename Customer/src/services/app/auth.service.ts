@@ -1,8 +1,9 @@
 import { ICustomer } from "../../database/models/customer/types";
 import Customer from "../../database/models/customer/index";
-import { ErrEmailAlreadyExists } from "../../errors";
-import { genHashedPassword } from "../../utils/auth.utils";
+import { ErrEmailAlreadyExists, ErrInvalidPassword, ErrUserNotFound } from "../../errors";
+import { comparePassword, genHashedPassword } from "../../utils/auth.utils";
 import { publishRiderEvent } from "./events.service";
+import { generateAuthToken } from "../security/token.service";
 
 
 
@@ -33,6 +34,32 @@ const createUserAccountService = async (userReq : ICustomer) =>{
     return newCustomer;
 };
 
+
+/**
+ * @description   Customer login
+ * @param (userReq)
+ * @returns user object
+ */
+export const userLoginService = async (email : string, password : string)=> {
+    
+    const findUser  = await Customer.findOne({ email: email });
+    if (!findUser) throw ErrUserNotFound;
+
+    const passwordCompare = comparePassword(password, findUser.password);
+    if (!passwordCompare) throw ErrInvalidPassword;
+
+    const payload =  {
+        _id : findUser._id,
+        publicId : findUser.publicId,
+    }
+
+    const token = await generateAuthToken(payload);
+
+    return { findUser, token};
+}
+
+
 export const AuthService = {
     createUserAccountService,
+    userLoginService
 }
