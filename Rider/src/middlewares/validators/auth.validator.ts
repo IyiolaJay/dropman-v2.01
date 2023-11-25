@@ -18,3 +18,8 @@ export const signUpValidator = Joi.object({
         return sanitizedPhoneNumber;
       }, 'Custom phone number validation').required(),
 })
+
+export const signInValidator = Joi.object({
+  email : Joi.string().email().required(),
+  password:Joi.string().min(6).max(100).required(),
+})

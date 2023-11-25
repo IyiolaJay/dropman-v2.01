@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import { getErrorMessage } from "../errors";
-import { AuthService } from "../services/app/auth.service";
+import { AuthService, userLoginService } from "../services/app/auth.service";
 
 
 export const createRiderAccount = async (req : Request, res: Response)=>{ 
@@ -20,4 +20,19 @@ export const createRiderAccount = async (req : Request, res: Response)=>{
         return;
     }
     
-    }
+}
+
+export const userLogin = async (req: Request, res: Response) => {
+try{
+    const {email , password} = req.body;
+    const user = await userLoginService(email, password);
+    return res.status(200).json({
+        message : "User logged in",
+        token : user.token,
+    })
+}catch(error:any){
+    console.log(error);
+    const result = getErrorMessage(error);
+    return res.status(error.code).json({error :result});
+}
+};

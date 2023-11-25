@@ -17,6 +17,7 @@ const createUserAccountService = async (userReq : ICustomer) =>{
 
     const customer =  await Customer.findOne({ email});
 
+    //@TODO check if email exists on rider's database
     const res = await publishRiderEvent({payload : {event : "CHECK_RIDER", data : {email : email}}})
     
     console.log(res);

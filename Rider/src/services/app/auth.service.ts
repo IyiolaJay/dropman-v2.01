@@ -1,7 +1,8 @@
 import Rider from "../../database/rider";
 import { IRider } from "../../database/rider/types";
-import { ErrEmailAlreadyExists } from "../../errors";
-import { genHashedPassword } from "../../utils/auth.utils";
+import { ErrEmailAlreadyExists, ErrInvalidPassword, ErrUserNotFound } from "../../errors";
+import { comparePassword, genHashedPassword } from "../../utils/auth.utils";
+import { generateAuthToken } from "../security/token.service";
 
 const createRiderAccountService = async (userReq : IRider) =>{
     const {email, password} = userReq;
@@ -23,6 +24,27 @@ const createRiderAccountService = async (userReq : IRider) =>{
     return newCustomer;
 };
 
+
+
+export const userLoginService = async (email : string, password : string)=> {
+    
+    const findUser  = await Rider.findOne({ email: email });
+    if (!findUser) throw ErrUserNotFound;
+
+    const passwordCompare = comparePassword(password, findUser.password);
+    if (!passwordCompare) throw ErrInvalidPassword;
+
+    const payload =  {
+        _id : findUser._id,
+        publicId : findUser.publicId,
+    }
+
+    const token = await generateAuthToken(payload);
+
+    return { findUser, token};
+}
+
 export const AuthService = {
     createRiderAccountService,
+    userLoginService
 }
