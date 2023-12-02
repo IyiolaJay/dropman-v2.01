@@ -13,3 +13,7 @@ export const validateRequest =
     }
     return next();
   };
+
+export const generateOTP = async () => {
+  return `${Math.floor(Math.random() * 1000000)}`;
+};

@@ -4,6 +4,8 @@ import { ErrEmailAlreadyExists, ErrInvalidPassword, ErrUserNotFound } from "../.
 import { comparePassword, genHashedPassword } from "../../utils/auth.utils";
 import { publishRiderEvent } from "./events.service";
 import { generateAuthToken } from "../security/token.service";
+import { sendToMail } from "../email/email.service";
+import { generateOTP } from "../../utils/api.utils";
 
 
 
@@ -13,7 +15,7 @@ import { generateAuthToken } from "../security/token.service";
  * @returns user object
  */
 const createUserAccountService = async (userReq : ICustomer) =>{
-    const {email, password} = userReq;
+    const {email, password, firstName} = userReq;
 
     const customer =  await Customer.findOne({ email});
 
@@ -26,20 +28,30 @@ const createUserAccountService = async (userReq : ICustomer) =>{
     
 
     const hp = await genHashedPassword(password);
+    const token = await generateOTP();
+
 
     const newCustomer = await Customer.create({
         ...userReq,
         password : hp,
+        otpCode : token,
     })  
-   
+    
+    const mailBody = {
+        to : email,
+        subject : "Welcome to Dropman",
+        name : firstName,
+        token : token 
+    }
+    await sendToMail(mailBody)
     return newCustomer;
 };
 
 
 /**
  * @description   Customer login
- * @param (userReq)
- * @returns user object
+ * @param (email & password )
+ * @returns user object & Token
  */
 export const userLoginService = async (email : string, password : string)=> {
     
