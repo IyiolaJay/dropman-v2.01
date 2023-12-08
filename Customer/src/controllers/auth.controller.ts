@@ -34,6 +34,6 @@ try{
 }catch(error:any){
     console.log(error);
     const result = getErrorMessage(error);
-    return res.status(error.code).json({error :result});
+    return res.status(result.code).json({error :result});
 }
 };
