@@ -4,10 +4,6 @@ import { verifyAuthToken } from "../services/security/token.service";
 import { ITokenData } from "../services/security/types";
 
 
-interface requestUser extends Request{
-    user?: any;
-}
-
 const _getAuthToken = (req: Request) => {
   const authHeader = req.get("Authorization");
   if (!authHeader || authHeader.split(" ")[0] !== "Bearer" ) {
@@ -17,7 +13,7 @@ const _getAuthToken = (req: Request) => {
 };
 
 export const authenticateUser = async (
-  req: requestUser,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -27,7 +23,7 @@ export const authenticateUser = async (
       userToken as string
     );
     
-    req.user = {
+    res.locals.user = {
         _id : decodedToken._id,
         publicId : decodedToken.publicId,
     };

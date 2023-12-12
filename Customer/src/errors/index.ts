@@ -47,10 +47,15 @@ export const getErrorMessage = (error : Error): IError => {
         case ErrUserNotFound:
             code = 404;
             break;
+        
 
         case ErrIncompleteFields:
             code = 406;
             break;
+
+        case ErrEmailAlreadyExists:
+                code = 422;
+                break;
 
         case ErrInternalServer:
             code = 500;

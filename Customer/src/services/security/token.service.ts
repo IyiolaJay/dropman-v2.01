@@ -6,6 +6,6 @@ export const generateAuthToken = async (payload: ITokenData) => {
 };
 
 export const verifyAuthToken = async (token: string) => {
-  const isValid = jwt.verify(token, "");
+  const isValid = jwt.verify(token, process.env.CUSTOMER_JWT_SECRET!);
   return isValid as ITokenData;
 };

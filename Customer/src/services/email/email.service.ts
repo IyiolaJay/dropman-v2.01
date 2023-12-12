@@ -18,8 +18,8 @@ export const sendToMail = async (mailBody :MailBody)=>{
     const transport : Transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: process.env.USER,
-        pass: process.env.PASS,
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
     },
     tls: { rejectUnauthorized: false },       
     });
@@ -27,7 +27,7 @@ export const sendToMail = async (mailBody :MailBody)=>{
     const html = await ejs.renderFile(templatePath, { body : mailBody });
 
     const options = {
-        from : process.env.USER,
+        from : process.env.GMAIL_USER,
         to : mailBody.to,
         subject : mailBody.subject,
         html : html,

@@ -23,6 +23,12 @@ app.use("/api/v2/rider", proxy(process.env.RIDER_PROXY || ""));
 
 serveSwaggerDocs(app, Number(process.env.PORT) ?? 5000);
 
-
+app.use((_: Request, res: Response) => {
+    return res.status(404).json({
+      error: { 
+          code: 404, 
+          message: "Service cannot be found!" 
+      },
+    })});
 
 export default app

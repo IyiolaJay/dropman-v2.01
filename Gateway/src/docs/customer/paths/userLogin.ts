@@ -5,7 +5,7 @@
  *     tags:
  *       - Authentication
  *     summary: User login
- *     operationId:loginUser
+ *     operationId: loginUser
  *     requestBody:
  *        required: true
  *        content:
